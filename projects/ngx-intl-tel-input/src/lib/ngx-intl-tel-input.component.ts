@@ -209,7 +209,10 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
 		this.checkSeparateDialCodeStyle();
 	}
 
-	public onPhoneNumberChange(): void {
+	public onPhoneNumberChange(shallPropagate = true): void {
+		if (!shallPropagate) {
+			return;
+		}
 		let countryCode: string | undefined;
 		// Handle the case where the user sets the value programatically based on a persisted ChangeData obj.
 		if (this.phoneNumber && typeof this.phoneNumber === 'object') {
@@ -354,7 +357,7 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
 		}
 		this.phoneNumber = obj;
 		setTimeout(() => {
-			this.onPhoneNumberChange();
+			this.onPhoneNumberChange(false);
 		}, 1);
 	}
 
